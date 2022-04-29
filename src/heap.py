@@ -95,15 +95,13 @@ def merge(left: HeapNode[Ord], right: HeapNode[Ord]) -> HeapNode[Ord]:
     """Merge two heaps into one."""
     # FIXME: The merge doesn't restore the leftst property if it is
     # violated. You need to fix that.
-    return restore(
-        right
-        if left is Empty
-        else left
-        if right is Empty
-        else InnerNode(left.value, left.left, merge(left.right, right))
-        if left.value < right.value
+    return right \
+        if left is Empty \
+        else left \
+        if right is Empty \
+        else InnerNode(left.value, left.left, merge(left.right, right)) \
+        if left.value < right.value \
         else InnerNode(right.value, right.left, merge(left, right.right))
-    )
 
 
 def restore(n: HeapNode[Ord]) -> HeapNode[Ord]:
@@ -115,9 +113,6 @@ def restore(n: HeapNode[Ord]) -> HeapNode[Ord]:
     """
     # FIXME: you need to implement this
     ...
-    if n is not Empty and n.left.rank < n.right.rank:
-        return InnerNode(n.value, n.right, n.left)
-    return n
 
 
 class Heap(Generic[Ord]):
